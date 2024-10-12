@@ -1,0 +1,27 @@
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/docker/Dockerfile
+    container_name: next_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    env_file:
+        - .env
+
+  backend:
+      build: 
+          context: .
+          dockerfile: ./backend/docker/Dockerfile
+      container_name: fastapi_app
+      restart: unless-stopped
+      ports:
+          - "8000:80"
+      volumes:
+          - ./backend:/app
+      env_file:
+          - .env
